@@ -1,8 +1,4 @@
-var esprima    = require ('../esprima.js');
-var escodegen  = require ('../escodegen.js');
-var util       = require ('../lib/util.js');
-var run        = require ('../lib/run.js');
-var instrument = require ('../lib/instrument.js');
+var instrument = require ('../../lib/instrument.js');
 var fs         = require ('fs');
 
 
@@ -23,12 +19,12 @@ function process_file (error, data)
     return console.log (error);
   }
 
-  var new_code = run.instrument (data);
-  fs.write_file (ofile, new_code);
+  var new_code = instrument.instrument (data);
+  fs.writeFile (ofile, new_code, 'utf8');
 }
 
 
-if (process.arg.Length < 4)
+if (process.argv.length < 4)
 {
   console.log ('Usage : node ' + process.argv[1] + ' <ifile> <ofile>');
   process.exit (1);
