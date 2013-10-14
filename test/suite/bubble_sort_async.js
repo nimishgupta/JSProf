@@ -2,7 +2,19 @@ Array.prototype.swap = function (i, j) {
     var k = this[i]; this[i] = this[j]; this[j] = k;
 }
 
-function bubbleSort(list) {
+
+function gen_data ()
+{
+  var data = [];
+  var N = 100;
+  while (N > 0) data.push(N--);
+
+  return data;
+}
+
+
+function bubbleSort() {
+    var list = gen_data ();
     var items = list.slice(0), swapped = false, p, q;
     for (p = 1; p < items.length; ++p) {
         for (q = 0; q < items.length - p; ++q) {
@@ -16,6 +28,6 @@ function bubbleSort(list) {
     return items;
 }
 
-var N = 100, data = []; while (N > 0) data.push(N--);
-bubbleSort(data);
+setTimeout (bubbleSort, 0);
+setTimeout (bubbleSort, 0);
 
