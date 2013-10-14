@@ -1,0 +1,7 @@
+Profiling data begin : 
+[
+  {},
+
+
+  {
+    "bubbleSort:205:../suite/bubble_sort_async.js&swap:23:../suite/bubble_sort_async.js":{"caller":{"name":"bubbleSort","line":"16","index":"205","file":"../suite/bubble_sort_async.js"},"callee":{"name":"swap","line":"1","index":"23","file":"../suite/bubble_sort_async.js"},"time":1,"ncalls":4950},"bubbleSort:205:../suite/bubble_sort_async.js&gen_data:98:../suite/bubble_sort_async.js":{"caller":{"name":"bubbleSort","line":"16","index":"205","file":"../suite/bubble_sort_async.js"},"callee":{"name":"gen_data","line":"6","index":"98","file":"../suite/bubble_sort_async.js"},"time":0,"ncalls":1}},{"bubbleSort:205:../suite/bubble_sort_async.js&swap:23:../suite/bubble_sort_async.js":{"caller":{"name":"bubbleSort","line":"16","index":"205","file":"../suite/bubble_sort_async.js"},"callee":{"name":"swap","line":"1","index":"23","file":"../suite/bubble_sort_async.js"},"time":1,"ncalls":4950},"bubbleSort:205:../suite/bubble_sort_async.js&gen_data:98:../suite/bubble_sort_async.js":{"caller":{"name":"bubbleSort","line":"16","index":"205","file":"../suite/bubble_sort_async.js"},"callee":{"name":"gen_data","line":"6","index":"98","file":"../suite/bubble_sort_async.js"},"time":0,"ncalls":1}}]

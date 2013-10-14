@@ -10,7 +10,7 @@ var fs         = require ('fs');
  */
 
 
-var ofile;
+var ifile, ofile;
 
 function process_file (error, data)
 {
@@ -19,7 +19,7 @@ function process_file (error, data)
     return console.log (error);
   }
 
-  var new_code = instrument.instrument (data);
+  var new_code = instrument.instrument (data, ifile);
   fs.writeFile (ofile, new_code, 'utf8');
 }
 
@@ -30,6 +30,6 @@ if (process.argv.length < 4)
   process.exit (1);
 }
 
-var ifile = process.argv[2];
-    ofile = process.argv[3];
+ifile = process.argv[2];
+ofile = process.argv[3];
 fs.readFile (ifile, 'utf8', process_file);

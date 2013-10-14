@@ -1,0 +1,47 @@
+Profiling data begin : 
+[
+  {
+    "__$__global__$__:0:../suite/bubble_sort.js&bubbleSort:97:../suite/bubble_sort.js":
+    
+    {
+      "caller": {
+                  "name"  : "__$__global__$__",
+                  "line"  : "0",
+                  "index" : "0",
+                  "file"  : ""
+                },
+
+      "callee": {
+                  "name"  : "bubbleSort",
+                  "line"  : "5",
+                  "index" :"97",
+                  "file"  : "../suite/bubble_sort.js"
+                },
+      "time"  : 0,
+      "ncalls": 1
+    },
+    
+    "bubbleSort:97:../suite/bubble_sort.js&swap:23:../suite/bubble_sort.js" : 
+    {
+      "caller": {
+                  "name"  : "bubbleSort",
+                  "line"  : "5",
+                  "index" : "97",
+                  "file"  : "../suite/bubble_sort.js"
+                },
+                
+      "callee" : {
+                   "name"   : "swap",
+                   "line"   : "1",
+                   "index"  : "23",
+                   "file"   : "../suite/bubble_sort.js"},"time":3,
+                   "ncalls" : 4950
+                 }
+    }
+]
+
+
+
+/* Description of data */
+
+- 
