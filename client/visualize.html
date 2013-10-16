@@ -4,7 +4,8 @@
   </HEAD>
   <BODY>
     <link href='./jquery-treetable/stylesheets/jquery.treetable.css' rel="stylesheet" type="text/css">
-    <script src="./jquery-treetable/javascripts/jquery.treetable.js"></script>
+    <script src="./jquery.js"></script>
+    <script src="./jquery-treetable/javascripts/src/jquery.treetable.js"></script>
 
 
     <div align="center"> 
@@ -55,7 +56,8 @@
 
     <script src="./visualize.js"></script>
     <script>
-      $("#topdown_tb_id").treetable ();
+      $("#topdown_tb_id").treetable ({column:6, expandable:true, clickableNodeNames:true});
+      $("#bottomup_tb_id").treetable ({column:6, expandable:true, clickableNodeNames:true});
     </script>
    
   </BODY>
