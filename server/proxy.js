@@ -41,7 +41,7 @@ function remote_response_handler (error,
                             remote_response.headers);
 
 
-  console.log (local_request.url + "   " + remote_response.statusCode + "    " + remote_response.headers['content-type']);
+  // console.log (local_request.url + "   " + remote_response.statusCode + "    " + remote_response.headers['content-type']);
 
   if (!error && is_http_success (remote_response.statusCode))
   {
@@ -93,30 +93,11 @@ function remote_response_handler (error,
 }
 
 
-function has_everything (string)
-{
-  var everything = new RegExp ("/*///*");
-  return everything.test (string);
-}
-
-
 function JSProf_server (local_request, local_response)
 {
 
   var pathname = url.parse (local_request.url).pathname;
-  var extn;
-
-  if (pathname[pathname.length - 1] === '/')
-  {
-    extn = ".html";
-  }
-  else 
-  {
-    extn = path.extname (pathname);
-  }
-
-  console.log (extn);
-
+  var extn = (pathname[pathname.length - 1] === '/') ? extn = ".html" : path.extname (pathname);
 
   if (extn === ".html" || extn === ".js")
   {
