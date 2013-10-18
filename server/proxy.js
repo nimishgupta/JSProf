@@ -4,7 +4,13 @@ var cheerio = require ('cheerio');
 var url     = require ('url');
 var path    = require ('path');
 var process = require ('process');
+var os      = require ('os');
+var fs      = require ('fs');
 
+
+
+var profile_collector = "run_browser.js";
+var profile_submitter = "submit.js";
 
 
 function has_html (string)
@@ -68,10 +74,17 @@ function remote_response_handler (error,
                             tag.html (instrument (js_body));
                             }
                             catch (e) {
+                              console.log (js_body);
                               console.log ("instrumenting failed, not instrumenting");
+                              process.exit (-1);
                             }
                           }
                         });
+
+      // Append run.js
+      // TODO : Things are hardcoded
+      $('<script type="application/javascript" src="http://localhost:2500/run_browser.js"></script>').prependTo ('head');
+      $('<script type="application/javascript" src="http://localhost:2500/submit_profile.js"></script>').prependTo ('head');
     }
     else if (has_javascript (content_type))
     {
@@ -95,9 +108,31 @@ function remote_response_handler (error,
 
 function JSProf_server (local_request, local_response)
 {
-
   var pathname = url.parse (local_request.url).pathname;
   var extn = (pathname[pathname.length - 1] === '/') ? extn = ".html" : path.extname (pathname);
+
+  // Check if request is for a static file
+  if ((extn === ".js") && ((path.basename (pathname) === profile_collector) || 
+                           (path.basename (pathname) === profile_submitter)))
+  {
+    // serve local file
+    var name = path.basename (pathname);
+    var js_mime = "application/javascript";
+
+    local_response.writeHead (200, { 'Content-Type' : js_mime });
+
+    if (profile_collector === name)
+    {
+      fs.createReadStream ("run_browser.js").pipe (local_response);
+    }
+    else if (profile_submitter === name)
+    {
+      fs.createReadStream ("submit.js").pipe (local_response);
+    }
+
+    return;
+  }
+
 
   if (extn === ".html" || extn === ".js")
   {
@@ -115,11 +150,9 @@ function JSProf_server (local_request, local_response)
   }
   else
   {
+    // Short circuit
     local_request.pipe (request (local_request.url)).pipe (local_response);
   }
 }
-
-
-
 
 http.createServer (JSProf_server).listen (2500);
