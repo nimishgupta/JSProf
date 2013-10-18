@@ -2,53 +2,85 @@ var http    = require ('http');
 var request = require ('request');
 var cheerio = require ('cheerio');
 var url     = require ('url');
+var path    = require ('path');
+var process = require ('process');
 
 
 
-function process_script_tag (index, element)
+function has_html (string)
 {
-  if (element.attr ('src'))
-  {
-    console.log ("src is : " + element.attr ('src'));
-    
+  var html = new RegExp ('html');
+  return html.test (string);
+}
 
-    // use url.resolve to resolve script references
-  }
-  else
-  {
-    console.log ("javascript is : " + element.html ());
-  }
+function has_javascript (string)
+{
+  var js = new RegExp ('javascript');
+  return js.test (string);
+}
+
+
+function is_http_success (status_code)
+{
+  return ((status_code >= 200) &&
+          (status_code <= 299));
 }
 
 
 function remote_response_handler (error,
                                   remote_response, 
                                   body, 
-                                  local_response)
+                                  local_response,
+                                  local_request)
 {
-  local_response.writeHead (remote_response.statusCode,
-                            remote_response.headers);
+  var instrument = (require ('../lib/instrument.js')).instrument;
 
-  if (!error && remote_response.statusCode === 200)
+  var status_code  = remote_response.statusCode;
+  var headers      = remote_response.headers;
+  var content_type = remote_response.headers['content-type'];
+  var url_path     = local_request.url;
+
+  local_response.writeHead (status_code, headers);
+
+  if (!error && is_http_success (status_code))
   {
     // AOK!
 
-    console.log (remote_response.headers['content-type']);
-    var html = new RegExp ("html");
-    if (true ===  html.test (remote_response.headers['content-type']))
+    // console.log (local_request.url + "   " + content_type);
+
+    if (has_html (content_type))
     {
       // parse html
-      console.log ("Here");
-      console.log (body);
       $ = cheerio.load (body);
+      // TODO : prepend run.js
       $('script').each (function (index, element)
                         {
-                          process_script_tag (index, $(this));
+                          var tag = $(this);
+
+                          if (!tag.attr ('src'))
+                          {
+                            var js_body = tag.html ();
+                            try {
+                            tag.html (instrument (js_body));
+                            }
+                            catch (e) {
+                              console.log ("instrumenting failed, not instrumenting");
+                            }
+                          }
                         });
     }
-    else
+    else if (has_javascript (content_type))
     {
-      console.log ("regex failed");
+      var file_path = url_path.pathname;
+
+      try
+      {
+        body = instrument (body, file_path);
+      }
+      catch (e)
+      {
+        console.log ("Failed at instrumenting a file : " + file_path);
+      }
     }
   }
 
@@ -56,19 +88,32 @@ function remote_response_handler (error,
 }
 
 
+function has_everything (string)
+{
+  var everything = new RegExp ("/*///*");
+  return everything.test (string);
+}
 
 
 function JSProf_server (local_request, local_response)
 {
-  var html = new RegExp ("html");
-  if (true ===  html.test (local_request.headers.accept))
-  {
-    if (local_request.headers['accept-encoding'])
-    {
-      delete local_request.headers['accept-encoding'];
-    }
 
-    console.log (local_request.url);
+  var pathname = url.parse (local_request.url).pathname;
+  var extn;
+
+  if (pathname[pathname.length - 1] === '/')
+  {
+    extn = "html";
+  }
+  else 
+  {
+    extn = path.extname (pathname);
+  }
+
+
+  if (extn === "html" || extn === "js")
+  {
+    delete local_request.headers['accept-encoding'];
 
     request (local_request,
              function (error, remote_response, body)
@@ -76,7 +121,8 @@ function JSProf_server (local_request, local_response)
                remote_response_handler (error, 
                                         remote_response,
                                         body,
-                                        local_response);
+                                        local_response,
+                                        local_request);
              });
   }
   else
