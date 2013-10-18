@@ -35,18 +35,22 @@ function remote_response_handler (error,
 {
   var instrument = (require ('../lib/instrument.js')).instrument;
 
-  var status_code  = remote_response.statusCode;
-  var headers      = remote_response.headers;
-  var content_type = remote_response.headers['content-type'];
   var url_path     = local_request.url;
 
-  local_response.writeHead (status_code, headers);
+  local_response.writeHead (remote_response.statusCode,
+                            remote_response.headers);
 
-  if (!error && is_http_success (status_code))
+
+  console.log (local_request.url + "   " + remote_response.statusCode + "    " + remote_response.headers['content-type']);
+
+  if (!error && is_http_success (remote_response.statusCode))
   {
     // AOK!
 
-    // console.log (local_request.url + "   " + content_type);
+    var status_code  = remote_response.statusCode;
+    var headers      = remote_response.headers;
+    var content_type = remote_response.headers['content-type'];
+
 
     if (has_html (content_type))
     {
@@ -71,10 +75,11 @@ function remote_response_handler (error,
     }
     else if (has_javascript (content_type))
     {
-      var file_path = url_path.pathname;
+      var file_path = url.parse (url_path).pathname;
 
       try
       {
+        console.log ("serving instrumented js for " + file_path);
         body = instrument (body, file_path);
       }
       catch (e)
@@ -103,15 +108,17 @@ function JSProf_server (local_request, local_response)
 
   if (pathname[pathname.length - 1] === '/')
   {
-    extn = "html";
+    extn = ".html";
   }
   else 
   {
     extn = path.extname (pathname);
   }
 
+  console.log (extn);
 
-  if (extn === "html" || extn === "js")
+
+  if (extn === ".html" || extn === ".js")
   {
     delete local_request.headers['accept-encoding'];
 
