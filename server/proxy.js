@@ -10,7 +10,7 @@ var fs      = require ('fs');
 
 
 var profile_collector = "run_browser.js";
-var profile_submitter = "submit.js";
+var profile_submitter = "submit_profile.js";
 
 
 function has_html (string)
@@ -83,8 +83,9 @@ function remote_response_handler (error,
 
       // Append run.js
       // TODO : Things are hardcoded
-      $('<script type="application/javascript" src="http://localhost:2500/run_browser.js"></script>').prependTo ('head');
-      $('<script type="application/javascript" src="http://localhost:2500/submit_profile.js"></script>').prependTo ('head');
+      $('head').prepend ('<script type="application/javascript" src="http://localhost:2500/run_browser.js"></script>');
+      $('head').prepend ('<script type="application/javascript" src="http://localhost:2500/submit_profile.js"></script>');
+      body = $.html ();
     }
     else if (has_javascript (content_type))
     {
@@ -123,11 +124,13 @@ function JSProf_server (local_request, local_response)
 
     if (profile_collector === name)
     {
-      fs.createReadStream ("run_browser.js").pipe (local_response);
+      console.log ("Serving run_browser.js");
+      fs.createReadStream ("../client/run_browser.js").pipe (local_response);
     }
     else if (profile_submitter === name)
     {
-      fs.createReadStream ("submit.js").pipe (local_response);
+      console.log ("Serving submit.js");
+      fs.createReadStream ("../client/submit.js").pipe (local_response);
     }
 
     return;
