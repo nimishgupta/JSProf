@@ -1,4 +1,4 @@
-;(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"FpvUUR":[function(require,module,exports){
 var util = require ('./util.js');
 
 var GLOBAL_FUNCTION_STR = "__$__global__$__";
@@ -254,7 +254,9 @@ module.exports.__$__m_exit__$__       = __$__m_exit__$__;
 module.exports.perf_data_json         = serialize_perf_data;
 module.exports.root_context           = root.f_info;
 
-},{"./util.js":2}],2:[function(require,module,exports){
+},{"./util.js":3}],"run":[function(require,module,exports){
+module.exports=require('FpvUUR');
+},{}],3:[function(require,module,exports){
 /* For arbitrary functions used across the project */
 
 function is_callable (f)
@@ -337,5 +339,5 @@ module.exports.is_defined      = is_defined;
 module.exports.fcall_to_string = stringigize_function_call;
 module.exports.is_empty        = is_empty;
 
-},{}]},{},[1])
+},{}]},{},[])
 ;
