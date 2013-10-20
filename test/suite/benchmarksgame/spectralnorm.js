@@ -4,6 +4,11 @@
 // contributed by Ian Osgood
 // Optimized by Roy Williams
 
+function print ()
+{
+  return;
+}
+
 function A(i,j) {
   return 1/(((i+j)*(i+j+1)>>>1)+i+1);
 }
@@ -53,4 +58,4 @@ function spectralnorm(n) {
   return Math.sqrt(vBv/vv);
 }
 
-print(spectralnorm(arguments[0]).toFixed(9));
+print(spectralnorm(500).toFixed(9));

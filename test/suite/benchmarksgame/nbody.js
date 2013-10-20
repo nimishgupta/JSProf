@@ -28,6 +28,12 @@ var DAYS_PER_YEAR = 365.24;
  * @param {number} mass
  * @constructor
  */
+
+function print ()
+{
+  return;
+}
+
 function Body(x,y,z,vx,vy,vz,mass,buffer,bodyIndex) {
    this.storage_ = new Float64Array(
       buffer, bodyIndex * Body.BYTES_SIZE, Body.NUM_FIELDS);
@@ -267,7 +273,7 @@ NBodySystem.prototype.energy = function(){
 /**
  * @type {number}
  */
-n = arguments[0];
+n = 500000;
 
 /**
  * @param {number} n

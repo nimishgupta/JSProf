@@ -2,6 +2,11 @@
    http://benchmarksgame.alioth.debian.org/
    contributed by Isaac Gouy */
 
+function print ()
+{
+  return;
+}
+
 function TreeNode(left,right,item){
    this.left = left;
    this.right = right;
@@ -28,7 +33,7 @@ function bottomUpTree(item,depth){
 
 
 var minDepth = 4;
-var n = arguments[0];
+var n = 12;
 var maxDepth = Math.max(minDepth + 2, n);
 var stretchDepth = maxDepth + 1;
 

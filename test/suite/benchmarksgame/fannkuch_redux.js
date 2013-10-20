@@ -5,6 +5,11 @@
    Modified by Roy Williams.
 */
 
+function print ()
+{
+  return;
+}
+
 function fannkuch(n) {
   var storage = new ArrayBuffer(12 * n);
   var p = new Int32Array(storage, 0, n), 
@@ -83,6 +88,6 @@ function fannkuch(n) {
   } while (true);
 }
 
-var n = +arguments[0];
+var n = 10;
 var pf = fannkuch(n);
 print(pf[0] + "\n" + "Pfannkuchen(" + n + ") = " + pf[1]);
