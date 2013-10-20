@@ -1,0 +1,58 @@
+html
+{
+  height: 100%;
+}
+
+
+body
+{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+
+.url_accept_style
+{
+  display: block;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.submit_profile_style
+{
+  display: none;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+}
+
+.results_div_style
+{
+  display: none;
+  position: fixed;
+  text-align: center;
+  top: 50px;
+  left: 0;
+  width: 100%;
+}
+
+.iframe_div_style
+{
+  display: none;
+  position: absolute;
+  overflow: hidden;
+  top: 25px;
+  width: 100%;
+  height: 100%
+}
+
+.iframe_style
+{
+  border-width: 1px;
+  border-color: #333;
+  border-style: solid;
+}
