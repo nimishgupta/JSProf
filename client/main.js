@@ -25,8 +25,6 @@ function on_profile_submit ()
 
 
 
-var td_table_id = "topdown_tb_id";
-var bu_table_id = "bottomup_tb_id";
 
 
 /*  data-tt-id
@@ -81,45 +79,37 @@ function dfs_td (table, callgraph, root, id, parent_id)
 
 
 
-function fill_bu_data (table_id)
+function fill_bu_data (table_id, bu_data)
 {
   var table = document.getElementById (table_id);
-  var parent_id = "";
 
   // Need a dfs routine
   var i = 0;
   for (var key in bu.call_graph)
   {
-    if (key !== bu.root_key)
+    if (bu.call_graph.hasOwnProperty (key))
     {
-      dfs_bu (table, bu.call_graph, bu.call_graph[key], i.toString ());
-      ++i;
+      if (key !== bu.root_key)
+      {
+        dfs_bu (table, bu.call_graph, bu.call_graph[key], i.toString ());
+        ++i;
+      }
     }
   }
 }
 
 
 
-function fill_td_data (table_id)
+function fill_td_data (table_id, td_data)
 {
   var table = document.getElementById (table_id);
-  var parent_id = "";
-
-  // Need a dfs routine
-  for (var i = 0; i < td.length; ++i)
-  {
-    var callgraph = td[i].call_graph;
-    var root = callgraph[td[i].root_key];
-
-    for (var key in root.children)
-    {
-      root = callgraph[key];
-    }
-
-    dfs_td (table, callgraph, root, i.toString ());
-  }
+  var root = td_data.call_graph[td_data.root_key];
+  dfs_td (table, td_data.call_graph, root, "0");
 }
 
+
+var td_table_id = "topdown_tb_id";
+var bu_table_id = "bottomup_tb_id";
 
 
 function on_message (e)
@@ -128,8 +118,8 @@ function on_message (e)
   var post_process = require ('post_process');
   post_process.process_performance_data (pf_data);
 
-  fill_bu_data (post_process.bottom_up_view);
-  fill_td_data (post_process.top_down_view);
+  fill_bu_data (bu_table_id, post_process.bottom_up_view);
+  fill_td_data (td_table_id, post_process.top_down_view);
 
 
   document.getElementId ("iframe_div").style.display         = 'none';
