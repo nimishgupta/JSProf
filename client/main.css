@@ -56,3 +56,27 @@ body
   border-color: #333;
   border-style: solid;
 }
+
+.Bottom_Up
+{
+ display: block;
+ position: fixed;
+ top: 30px;
+ left: 20px;
+ right: 20px
+ visibility: visible; 
+}
+
+.Top_Down
+{ 
+ display: block;
+ position: fixed;
+ top: 30px;
+ left: 20px;
+ right: 20px;
+ visibility: hidden;
+}
+
+
+
+
