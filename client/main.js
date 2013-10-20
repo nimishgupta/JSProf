@@ -22,6 +22,17 @@ function on_profile_submit ()
   iframe_win.postMessage ("its_over", src);
 }
 
+function bu_view ()
+{
+  document.getElementById ("bu_div").style.visibility = 'visible';
+  document.getElementById ("td_div").style.visibility = 'hidden';
+}
+
+function td_view()
+{
+  document.getElementById ("td_div").style.visibility = 'visible';
+  document.getElementById ("bu_div").style.visibility = 'hidden';
+}
 
 
 
