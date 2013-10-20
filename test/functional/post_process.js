@@ -17,7 +17,7 @@ function process_file (error, data)
     return console.log (error);
   }
 
-  pp.process_performance_data (data);
+  pp.process_performance_data (JSON.parse (data));
 
   console.log ("Data : ");
   console.log (JSON.stringify  (pp.bottom_up_view));
