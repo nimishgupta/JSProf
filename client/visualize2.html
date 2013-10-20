@@ -6,37 +6,25 @@
     <link href='./jquery-treetable/stylesheets/jquery.treetable.css' rel="stylesheet" type="text/css">
     <script src="./jquery.js"></script>
     <script src="./jquery-treetable/javascripts/src/jquery.treetable.js"></script>
-
-
+    
     <div align="center"> 
       <form name="view_form">
-        <input type="radio" name="pd_view_type" value="bottom up" checked="checked"> <b>Bottom up</b> </input>
-        <input type="radio" name="pd_view_type" value="top down">                    <b>Top Down </b> </input> 
+        <table align = "right">
+          <tr align = "right">
+	    <td align = "right">
+	      <a href = "./visualize1.html"><b>Bottom Up</a>
+	    </td>
+	  </tr>
+	</table>
       </form>
     </div>
 
     <br/>
     <br/>
 
-    <!-- bottom up view  -->
-    <div id="bu_div" align="center" style="visibility: visible; display : block;">
-      <table id="bottomup_tb_id" border="1" cellpadding="6" cellspacing="2"> 
-        <tr>
-          <th width="6%"> Self (ms)   </th>
-          <th width="6%"> Self (%)    </th>
-          <th width="6%"> total (ms)  </th>
-          <th width="6%"> total (%)   </th>
-          <th width="6%"> #Calls      </th>
-          <th width="6%"> #S Calls      </th>
-          <th width="44%"> Function   </th>
-          <th width="20%"> Definition </th>
-        </tr>
-
-      </table>
-    </div>
-
     <!-- top down view -->
     <div id="td_div" align="center" style="visibility: visible; display : block;">
+      <table> <font size= "4"><b>Top Down</table>
       <table id="topdown_tb_id" border="1" cellpadding="6" cellspacing="2"> 
 
         <tr>
@@ -54,10 +42,9 @@
     </div>
 
 
-    <script src="./visualize.js"></script>
+    <script src="./visualize2.js"></script>
     <script>
       $("#topdown_tb_id").treetable ({column:6, expandable:true, clickableNodeNames:true});
-      $("#bottomup_tb_id").treetable ({column:6, expandable:true, clickableNodeNames:true});
     </script>
    
   </BODY>
