@@ -85,13 +85,13 @@ function fill_bu_data (table_id, bu_data)
 
   // Need a dfs routine
   var i = 0;
-  for (var key in bu.call_graph)
+  for (var key in bu_data.call_graph)
   {
-    if (bu.call_graph.hasOwnProperty (key))
+    if (bu_data.call_graph.hasOwnProperty (key))
     {
-      if (key !== bu.root_key)
+      if (key !== bu_data.root_key)
       {
-        dfs_bu (table, bu.call_graph, bu.call_graph[key], i.toString ());
+        dfs_bu (table, bu_data.call_graph, bu_data.call_graph[key], i.toString ());
         ++i;
       }
     }
