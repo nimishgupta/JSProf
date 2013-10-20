@@ -82,8 +82,8 @@ function remote_response_handler (error,
                         });
 
       // TODO : Things are hardcoded
-      $('head').prepend ('<script type="application/javascript" src="http://localhost:2500/run_browser.js"></script>');
       $('head').prepend ('<script type="application/javascript" src="http://localhost:2500/submit_profile.js"></script>');
+      $('head').prepend ('<script type="application/javascript" src="http://localhost:2500/run_browser.js"></script>');
       body = $.html ();
     }
     else if (has_javascript (content_type))
