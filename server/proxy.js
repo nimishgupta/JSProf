@@ -8,7 +8,6 @@ var os      = require ('os');
 var fs      = require ('fs');
 
 
-
 var profile_collector = "run_browser.js";
 var profile_submitter = "submit_profile.js";
 
@@ -62,6 +61,7 @@ function remote_response_handler (error,
     {
       // parse html
       $ = cheerio.load (body);
+
       // TODO : prepend run.js
       $('script').each (function (index, element)
                         {
@@ -81,7 +81,6 @@ function remote_response_handler (error,
                           }
                         });
 
-      // Append run.js
       // TODO : Things are hardcoded
       $('head').prepend ('<script type="application/javascript" src="http://localhost:2500/run_browser.js"></script>');
       $('head').prepend ('<script type="application/javascript" src="http://localhost:2500/submit_profile.js"></script>');
@@ -124,12 +123,12 @@ function JSProf_server (local_request, local_response)
 
     if (profile_collector === name)
     {
-      console.log ("Serving run_browser.js");
+      // console.log ("Serving run_browser.js");
       fs.createReadStream ("../client/run_browser.js").pipe (local_response);
     }
     else if (profile_submitter === name)
     {
-      console.log ("Serving submit.js");
+      // console.log ("Serving submit.js");
       fs.createReadStream ("../client/submit.js").pipe (local_response);
     }
 
