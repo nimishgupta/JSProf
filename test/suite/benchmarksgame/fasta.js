@@ -4,6 +4,11 @@
 //  Contributed by Ian Osgood
 //  Largely rewritten by Matthew Wilson
 
+function print ()
+{
+  return;
+}
+
 function fastaRepeat(n, seq) {
   var seqi = 0, len = seq.length, i, j, k, l, block, 
     str = Array(len*60+1).join(seq), lines = Array(i=j=len*len);
@@ -67,4 +72,4 @@ function fastaRandom(n, table) {
 
   print(">THREE Homo sapiens frequency")
   fastaRandom(5*n, HomoSap)
-}).call(this, 1*arguments[0]*1)
+}).call(this, 1*250000*1)
