@@ -3,7 +3,6 @@ var request = require ('request');
 var cheerio = require ('cheerio');
 var url     = require ('url');
 var path    = require ('path');
-var process = require ('process');
 var os      = require ('os');
 var fs      = require ('fs');
 
@@ -74,7 +73,6 @@ function remote_response_handler (error,
                             catch (e) {
                               console.log (js_body);
                               console.log ("instrumenting failed, not instrumenting");
-                              process.exit (-1);
                             }
                           }
                         });
