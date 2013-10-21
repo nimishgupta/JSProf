@@ -42,11 +42,7 @@ function remote_response_handler (error,
 
   var url_path     = local_request.url;
 
-  local_response.writeHead (remote_response.statusCode,
-                            remote_response.headers);
-
-
-  // console.log (local_request.url + "   " + remote_response.statusCode + "    " + remote_response.headers['content-type']);
+  console.log (local_request.url + "   " + remote_response.statusCode);
 
   if (!error && is_http_success (remote_response.statusCode))
   {
@@ -55,6 +51,8 @@ function remote_response_handler (error,
     var status_code  = remote_response.statusCode;
     var headers      = remote_response.headers;
     var content_type = remote_response.headers['content-type'];
+
+    console.log (headers);
 
 
     if (has_html (content_type))
@@ -84,7 +82,9 @@ function remote_response_handler (error,
       // TODO : Things are hardcoded
       $('head').prepend ('<script type="application/javascript" src="http://localhost:2500/submit_profile.js"></script>');
       $('head').prepend ('<script type="application/javascript" src="http://localhost:2500/run_browser.js"></script>');
+
       body = $.html ();
+      remote_response.headers['content-length'] = body.length;
     }
     else if (has_javascript (content_type))
     {
@@ -99,10 +99,22 @@ function remote_response_handler (error,
       {
         console.log ("Failed at instrumenting a file : " + file_path);
       }
+
+      remote_response.headers['content-length'] = body.length;
     }
+
+    local_response.writeHead (remote_response.statusCode,
+                              remote_response.headers);
+
+    local_response.end (body, encoding='binary');
+  }
+  else
+  {
+    local_response.writeHead (remote_response.statusCode);
+    local_response.end ();
   }
 
-  local_response.end (body, encoding='binary');
+
 }
 
 
@@ -123,12 +135,14 @@ function JSProf_server (local_request, local_response)
 
     if (profile_collector === name)
     {
-      // console.log ("Serving run_browser.js");
+      // TODO : Make user input
+      console.log ("Serving run_browser.js");
       fs.createReadStream ("../client/run_browser.js").pipe (local_response);
     }
     else if (profile_submitter === name)
     {
-      // console.log ("Serving submit.js");
+      // TODO : Make user input
+      console.log ("Serving submit.js");
       fs.createReadStream ("../client/submit.js").pipe (local_response);
     }
 
@@ -139,6 +153,8 @@ function JSProf_server (local_request, local_response)
   if (extn === ".html" || extn === ".js")
   {
     delete local_request.headers['accept-encoding'];
+    local_request.headers['cache-control'] = 'no-cache';
+    local_request.headers['if-modified-since'] = 'Sun, 20 Oct 2013 08:00:00 GMT' ;
 
     request (local_request,
              function (error, remote_response, body)
