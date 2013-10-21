@@ -53,9 +53,9 @@ function add_row (table, node, id, parent_id)
   var new_row = table.insertRow (-1);
 
   new_row.insertCell (-1).innerHTML = node.self_time_ms;
-  new_row.insertCell (-1).innerHTML = "0";
+  new_row.insertCell (-1).innerHTML = node.self_time_pc.toFixed (2);
   new_row.insertCell (-1).innerHTML = node.total_time_ms;
-  new_row.insertCell (-1).innerHTML = "0";
+  new_row.insertCell (-1).innerHTML = node.total_time_pc.toFixed (2);
   new_row.insertCell (-1).innerHTML = node.ntotal_calls;
   new_row.insertCell (-1).innerHTML = node.nself_rec_calls;
   new_row.insertCell (-1).innerHTML = node.name;
@@ -135,7 +135,7 @@ function on_message (e)
   var post_process = require ('post_process');
   post_process.process_performance_data (pf_data);
 
-  fill_bu_data (bu_table_id, post_process.bottom_up_view);
+  fill_bu_data (bu_table_id, post_process.top_down_view);
   fill_td_data (td_table_id, post_process.top_down_view);
 
   $("#topdown_tb_id").treetable ({column:6, expandable:true, clickableNodeNames:true});

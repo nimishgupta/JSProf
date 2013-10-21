@@ -229,7 +229,6 @@ var call_info = require ('./call_graph.js');
 
 function GlobalCallInfo ()
 {
-  this.bottom_up_view = call_info.CallInfo (); 
   this.top_down_view  = call_info.CallInfo ();
 
 
@@ -241,7 +240,6 @@ function GlobalCallInfo ()
     {
       if (clo.hasOwnProperty (key))
       {
-        this.bottom_up_view.add_call (clo[key]);
         this.top_down_view.add_call (clo[key]);
       }
     }
@@ -273,10 +271,8 @@ function process_performance_data (pd_arr)
      global_call_info.process_call_stack (pd_arr[i]);
    }
 
-   var bu_view = global_call_info.bottom_up_view;
    var td_view = global_call_info.top_down_view;
 
-   bu_view.set_root (run.root_context);
    td_view.set_root (run.root_context);
 
    // Since there is no one calling root, the time is inverted
@@ -284,8 +280,6 @@ function process_performance_data (pd_arr)
    td_view.call_graph[td_view.root_key].total_time_ms = Math.abs (td_view.call_graph[td_view.root_key].self_time_ms);
    td_view.call_graph[td_view.root_key].self_time_ms = 0;
 
-   bu_view.call_graph[bu_view.root_key].total_time_ms = Math.abs (bu_view.call_graph[bu_view.root_key].self_time_ms);
-   bu_view.call_graph[bu_view.root_key].self_time_ms = 0;
 
    call_info.update_hotpath_info (td_view.call_graph[td_view.root_key],
                                   td_view.call_graph);
@@ -293,15 +287,10 @@ function process_performance_data (pd_arr)
    call_info.pc_calc (td_view.call_graph[td_view.root_key],
                       td_view.call_graph, 
                       td_view.call_graph[td_view.root_key].total_time_ms);
-
-   call_info.pc_calc (bu_view.call_graph[bu_view.root_key],
-                      bu_view.call_graph, 
-                      bu_view.call_graph[bu_view.root_key].total_time_ms);
 }
 
 
 module.exports.process_performance_data = process_performance_data;
-module.exports.bottom_up_view           = global_call_info.bottom_up_view;
 module.exports.top_down_view            = global_call_info.top_down_view;
 
 },{"./call_graph.js":1,"./run.js":4}],"post_process":[function(require,module,exports){
@@ -317,7 +306,7 @@ var root = {
                         name  : ROOT_STR,
                         line  : '0',
                         index : '0',
-                        file  : "js_engine"
+                        file  : "jse"
                       }
            };
 
@@ -366,14 +355,14 @@ function PerfData ()
   // TODO : Can be easily converted to two level hash table
   this.perf_data = {};
 
-  this.timer_id  = null;
+  // this.timer_id  = null;
 
   var self = this;
 
   this.process_data_async = function ()
   {
     // Invalidate timer id so that any other call is not cancelled accidentally
-    self.timer_id = null;
+    // self.timer_id = null;
 
     while (self.perf_data_raw.length)
     { 
@@ -438,8 +427,8 @@ function PerfData ()
      * of function and the monitoring calls add (hopefully) negligible overhead
      * Javascript single threaded model comes to our rescue :)
      */
-    clearTimeout (self.timer_id);
-    self.timer_id = setTimeout (self.process_data_async, 0);
+    //clearTimeout (self.timer_id);
+    // self.timer_id = setTimeout (self.process_data_async, 0);
   };
 }
 
@@ -454,7 +443,7 @@ var pd_objs = [];
 function cur_time ()
 {
   // TODO : Use higher resolution timer
-  return (new Date ()).getTime ();
+  return Date.now (); 
 }
 
 
@@ -481,7 +470,7 @@ function __$__m_entry__$__ (name, line, index, file)
 
 
 
-function __$__m_exit__$__ (name, line, index, file)
+function __$__m_exit__$__ ()
 {
   /**
    * 1. Record end time
@@ -496,19 +485,6 @@ function __$__m_exit__$__ (name, line, index, file)
   var callee = o.f_info;
   var start  = o.start;
 
-  // sanity check, not required except for debugging purpose
-  if (name  !== callee.name  ||
-      line  !== callee.line  ||
-      index !== callee.index ||
-      file  !== callee.file)
-  {
-    // Node js specific
-    if (typeof console === 'object')
-    {
-      console.log ("Corrupt call stack");
-    }
-  }
-
   var time = end - start;
 
   // Determine caller
@@ -519,6 +495,14 @@ function __$__m_exit__$__ (name, line, index, file)
   {
     // No function executing right now, a new call stack should start for next invocation
     pd_objs.push (pd_unit);
+
+    /* Idea is to batch + delay our computation as long as there is some user code
+     * available to execute. It helps with that it does not affect the execution time
+     * of function and the monitoring calls add (hopefully) negligible overhead
+     * Javascript single threaded model comes to our rescue :)
+     */
+    setTimeout (pd_unit.process_data_async, 0);
+
     pd_unit = new PerfData ();
   }
 }
