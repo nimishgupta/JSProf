@@ -3,6 +3,12 @@ function url_submit ()
   var url = document.getElementById ("url_pf").value;
   url = url.trim ();
 
+  if ((url.indexOf ("http://") === -1) &&
+      (url.indexOf ("https://") === -1))
+  {
+    url = "http://" + url;
+  }
+
   // Post message
   document.getElementById ("wp_iframe").src = url;
 
@@ -16,8 +22,8 @@ function url_submit ()
 
 function on_profile_submit ()
 {
-  var iframe_win = document.getElementId ("wp_iframe").contentWindow;
-  var src = document.getElementId ("wp_iframe").src;
+  var iframe_win = document.getElementById ("wp_iframe").contentWindow;
+  var src = document.getElementById ("wp_iframe").src;
 
   iframe_win.postMessage ("its_over", src);
 }
@@ -125,17 +131,19 @@ var bu_table_id = "bottomup_tb_id";
 
 function on_message (e)
 {
-  var pf_data = e.data;
+  var pf_data = JSON.parse (e.data);
   var post_process = require ('post_process');
   post_process.process_performance_data (pf_data);
 
   fill_bu_data (bu_table_id, post_process.bottom_up_view);
   fill_td_data (td_table_id, post_process.top_down_view);
 
+  $("#topdown_tb_id").treetable ({column:6, expandable:true, clickableNodeNames:true});
+  $("#bottomup_tb_id").treetable ({column:6, expandable:true, clickableNodeNames:true});
 
-  document.getElementId ("iframe_div").style.display         = 'none';
-  document.getElementId ("submit_profile_div").style.display = 'none';
-  document.getElementId ("results_div").style.display        = 'block';
+  document.getElementById ("iframe_div").style.display         = 'none';
+  document.getElementById ("submit_profile_div").style.display = 'none';
+  document.getElementById ("results_div").style.display        = 'block';
 }
 
 
