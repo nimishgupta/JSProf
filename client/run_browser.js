@@ -9,7 +9,7 @@ var root = {
                         name  : ROOT_STR,
                         line  : '0',
                         index : '0',
-                        file  : "js_engine"
+                        file  : "jse"
                       }
            };
 
@@ -173,7 +173,7 @@ function __$__m_entry__$__ (name, line, index, file)
 
 
 
-function __$__m_exit__$__ (name, line, index, file)
+function __$__m_exit__$__ ()
 {
   /**
    * 1. Record end time
@@ -187,19 +187,6 @@ function __$__m_exit__$__ (name, line, index, file)
 
   var callee = o.f_info;
   var start  = o.start;
-
-  // sanity check, not required except for debugging purpose
-  if (name  !== callee.name  ||
-      line  !== callee.line  ||
-      index !== callee.index ||
-      file  !== callee.file)
-  {
-    // Node js specific
-    if (typeof console === 'object')
-    {
-      console.log ("Corrupt call stack");
-    }
-  }
 
   var time = end - start;
 
