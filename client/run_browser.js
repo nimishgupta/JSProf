@@ -24,9 +24,9 @@ function get_key (caller, callee)
 
 function is_same_function (f1, f2)
 {
-  return !((f1.name  === f2.name)  &&
-           (f1.index === f2.index) &&
-           (f1.file  === f2.file));
+  return ((f1.name  === f2.name)  &&
+          (f1.index === f2.index) &&
+          (f1.file  === f2.file));
 }
 
 
@@ -88,7 +88,7 @@ function PerfData ()
        * If there is a self recursive call then the time measurements could easily get
        * corrupt if we add time for every call. Instead of taking cumulative times of
        * recursive calls we take only the time taken of last recursive call as it
-       * comprises of last recursive call.
+       * comprises of all recursive calls.
        */
       if (is_call_self_recursive (frame.caller, frame.callee))
       {
@@ -241,7 +241,7 @@ function serialize_perf_data (callback)
   // return in form of string
   if (util.is_callable (callback))
   {
-    callback (JSON.stringify (pd_arr));
+    callback (pd_arr);
   }
 }
 
