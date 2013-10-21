@@ -58,14 +58,14 @@ function PerfData ()
   // TODO : Can be easily converted to two level hash table
   this.perf_data = {};
 
-  this.timer_id  = null;
+  // this.timer_id  = null;
 
   var self = this;
 
   this.process_data_async = function ()
   {
     // Invalidate timer id so that any other call is not cancelled accidentally
-    self.timer_id = null;
+    // self.timer_id = null;
 
     while (self.perf_data_raw.length)
     { 
@@ -130,8 +130,8 @@ function PerfData ()
      * of function and the monitoring calls add (hopefully) negligible overhead
      * Javascript single threaded model comes to our rescue :)
      */
-    clearTimeout (self.timer_id);
-    self.timer_id = setTimeout (self.process_data_async, 0);
+    //clearTimeout (self.timer_id);
+    // self.timer_id = setTimeout (self.process_data_async, 0);
   };
 }
 
@@ -211,6 +211,14 @@ function __$__m_exit__$__ (name, line, index, file)
   {
     // No function executing right now, a new call stack should start for next invocation
     pd_objs.push (pd_unit);
+
+    /* Idea is to batch + delay our computation as long as there is some user code
+     * available to execute. It helps with that it does not affect the execution time
+     * of function and the monitoring calls add (hopefully) negligible overhead
+     * Javascript single threaded model comes to our rescue :)
+     */
+    setTimeout (pd_unit.process_data_async, 0);
+
     pd_unit = new PerfData ();
   }
 }
