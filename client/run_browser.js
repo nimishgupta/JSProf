@@ -146,7 +146,7 @@ var pd_objs = [];
 function cur_time ()
 {
   // TODO : Use higher resolution timer
-  return (new Date ()).getTime ();
+  return Date.now (); 
 }
 
 
