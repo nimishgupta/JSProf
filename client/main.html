@@ -4,11 +4,16 @@
   </HEAD>
 
   <BODY>
-    <!-- Div 1 to accept url -->
-    <!-- <script src="./jquery.js"></script> -->
-    <script src="./main.js"></script>
-    <link href="./main.css" rel="stylesheet" type="text/css"/> 
+    <link href='jquery-treetable/stylesheets/jquery.treetable.css' rel="stylesheet" type="text/css"/>
+    <script src="jquery.js"></script>
+    <script src="jquery-treetable/javascripts/src/jquery.treetable.js"></script>
+    <script src="post_process_browser.js"></script>
 
+    <script src="main.js"></script>
+    <link href="main.css" rel="stylesheet" type="text/css"/> 
+
+
+    <!-- Div 1 to accept url -->
     <div id="accept_url_div" class="url_accept_style">
 
       <form action="javascript" onsubmit="return url_submit ();">
@@ -26,18 +31,6 @@
       to end profile and view results. </a>
     </div>
 
-    <!-- Iframe div -->
-    <div id="iframe_div" class="iframe_div_style">
-      <iframe id="wp_iframe"
-              src="about:blank" 
-              width="100%" 
-              height="100%"
-              marginwidth="0" 
-              marginheight="0" 
-              frameborder="no" 
-              scrolling="auto"
-              <!-- class="iframe_style" --> />
-    </div>
 
     <!-- Results div -->
     <div id="results_div" class="results_div_style">
@@ -76,7 +69,6 @@
             <th width="44%"> Function   </th>
             <th width="20%"> Definition </th>
           </tr>
-
         </table>
       </div>
 
@@ -94,8 +86,23 @@
             <th width="44%"> Function   </th>
             <th width="20%"> Definition </th>
           </tr>
-
         </table>
       </div>
 
     </div>
+
+
+    <!-- Iframe div -->
+    <div id="iframe_div" class="iframe_div_style">
+      <iframe id="wp_iframe"
+              src="about:blank" 
+              width="100%" 
+              height="100%"
+              marginwidth="0" 
+              marginheight="0" 
+              frameborder="no" 
+              scrolling="auto"
+              <!-- class="iframe_style" --> />
+    </div>
+  </BODY>
+</HTML>
