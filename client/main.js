@@ -52,6 +52,11 @@ function add_row (table, node, id, parent_id)
 {
   var new_row = table.insertRow (-1);
 
+  if (node.is_hotpath)
+  {
+    new_row.style.backgroundColor = "#FCF2F0";
+  }
+
   new_row.insertCell (-1).innerHTML = node.self_time_ms;
   new_row.insertCell (-1).innerHTML = node.self_time_pc.toFixed (2);
   new_row.insertCell (-1).innerHTML = node.total_time_ms;
