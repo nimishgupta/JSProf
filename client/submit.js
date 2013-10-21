@@ -1,6 +1,6 @@
 function pf_data_callback (pf_data)
 {
-  window.parent.postMessage (pf_data, "*");
+  window.parent.postMessage (JSON.stringify (pf_data), "*");
 }
 
 
