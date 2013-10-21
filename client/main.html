@@ -43,12 +43,20 @@
     <div id="results_div" class="results_div_style">
       <div id="results_select_div"> 
         <form name="view_form">
-          <input type="radio" name="pd_view_type" value="bottom up" checked="checked">
-            <b>Bottom up</b>
-          </input>
-          <input type="radio" name="pd_view_type" value="top down">
-            <b>Top Down</b>
-          </input> 
+         <table align= "center">
+          <tr align="center">
+  	   <td align="center">
+            <input type="radio" id="bu_view" value="bottom up" checked="checked" onclick= "bu_view ();">
+             <b>Bottom up</b>
+            </input>
+           </td>
+           <td align="center">
+            <input type="radio" name="td_view" value="top down" onclick= "td_view ();">
+             <b>Top Down</b>
+            </input>
+           </td>
+	  </tr>
+         </table> 
         </form>
       </div>
 
@@ -56,7 +64,7 @@
       <br/>
 
       <!-- bottom up view  -->
-      <div id="bu_div" align="center" style="visibility: visible; display : block;">
+      <div id="bu_div" align="center" class="Bottom_Up">
         <table id="bottomup_tb_id" border="1" cellpadding="6" cellspacing="2"> 
           <tr>
             <th width="6%"> Self (ms)   </th>
@@ -73,7 +81,7 @@
       </div>
 
       <!-- top down view -->
-      <div id="td_div" align="center" style="visibility: visible; display : block;">
+      <div id="td_div" align="center" class="Top_Down">
         <table id="topdown_tb_id" border="1" cellpadding="6" cellspacing="2"> 
 
           <tr>
