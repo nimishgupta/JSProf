@@ -135,13 +135,13 @@ function JSProf_server (local_request, local_response)
     {
       // TODO : Make user input
       console.log ("Serving run_browser.js");
-      fs.createReadStream ("../client/run_browser.js").pipe (local_response);
+      fs.createReadStream ("./files/run_browser.js").pipe (local_response);
     }
     else if (profile_submitter === name)
     {
       // TODO : Make user input
       console.log ("Serving submit.js");
-      fs.createReadStream ("../client/submit.js").pipe (local_response);
+      fs.createReadStream ("./files/submit.js").pipe (local_response);
     }
 
     return;
