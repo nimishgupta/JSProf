@@ -58,19 +58,17 @@ Instructions to run
 =======================
 
 
-The node "\_\_$\_\_root\_\_$\_\_" symbolizes the js engine and "\_\_$\_\_global\_\_$\_\_" symbolizes global context
-
 Key to Results
 
-There are two views
+There are two views. A Radio button allows to choose between the views
 
 1. Top Down view 
 2. Bottom up view
 
 Top Down View : This view shows the program flow from the top most context (i.e. the JS engine). Whenever a function name is clicked in this view, the descendants show which functions are called by that function.
+
 Bottom Up View : This view consists of all the functions that are executed. Whenever a function is clicked in this view, the descendants show the functions which called that function
 
-A Radio button allows to choose between the views
-
+The node "\_\_$\_\_root\_\_$\_\_" symbolizes the js engine and "\_\_$\_\_global\_\_$\_\_" symbolizes global context
 
 Hot paths are highlighted in pink.
