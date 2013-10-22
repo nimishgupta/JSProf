@@ -14,7 +14,7 @@ Instructions to run
    1.2 Install any http server
 
 
-   1.2 Install the following node modules
+   1.3 Install the following node modules
        - esprima
        - escodegen (install locally in project/lib/ directory, otherwise node is not able to pick it)
        - cheerio
@@ -26,15 +26,15 @@ Instructions to run
        - fs
 
 
-   1.3 start proxy server 
+   1.4 start proxy server 
 
-      Go into "server/" directory and start proxy server by executing "node proxy.js"
-
-
-   1.4 Configure proxy in web browser to point to "localhost:2500"
+        Go into "server/" directory and start proxy server by executing "node proxy.js"
 
 
-   1.5 Copy "client" folder to a location where it can be served by a http server
+   1.5 Configure proxy in web browser to point to "localhost:2500"
+
+
+   1.6 Copy "client" folder to a location where it can be served by a http server
 
 
 
