@@ -8,10 +8,10 @@ Instructions to run
 
 1. Setup Environment
 
-   1.1 Make sure that node is installed
+   1.1 Install node js
 
 
-   1.2 Make sure that files can be served through a http server
+   1.2 Install any http server
 
 
    1.2 Install the following node modules
@@ -34,7 +34,7 @@ Instructions to run
    1.4 Configure proxy in web browser to point to "localhost:2500"
 
 
-   1.5 Copy "client" folder to a location where it can be served by an http server
+   1.5 Copy "client" folder to a location where it can be served by a http server
 
 
 
@@ -60,7 +60,7 @@ Instructions to run
 
 Key to Results
 
-There are two views. A Radio button allows to choose between the views
+There are two views. A radio button allows to choose between the views
 
 1. Top Down view 
 2. Bottom up view
