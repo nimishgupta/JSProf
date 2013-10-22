@@ -11,14 +11,6 @@ body
   height: 100%;
 }
 
-
-.url_accept_style
-{
-  display: block;
-  text-align: center;
-  vertical-align: middle;
-}
-
 .submit_profile_style
 {
   display: none;
@@ -77,6 +69,17 @@ body
  visibility: visible;
 }
 
+.url_accept_style 
+{
+ display: block;
+ text-align: center;
+ position: absolute;
+ top: 43%;
+ left: 25%;
+}
 
-
+.text_box
+{
+ width:400px;
+}
 
