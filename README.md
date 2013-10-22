@@ -58,7 +58,7 @@ Instructions to run
 =======================
 
 
-The node "_$_root_$_" symbolizes the js engine and "_$_global_$_" symbolizes global context
+The node "\_\_$\_\_root\_\_$\_\_" symbolizes the js engine and "\_\_$\_\_global\_\_$\_\_" symbolizes global context
 
 Key to Results
 
