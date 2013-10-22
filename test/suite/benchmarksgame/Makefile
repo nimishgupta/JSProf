@@ -13,9 +13,9 @@ all: .done
 
 %.d:%.js
 	node ../../functional/instrument.js $< $*.tmp
-	cat depends print.js $*.tmp ../../functional/profile_helper.js >> $*_inst.js
+	cat depends print.js $*.tmp ../profile_helper >> $*_inst.js
 	rm $*.tmp
 	touch .$*.d
 
 clean:
-	rm -f *_inst.js .done *.d || true
+	rm -f *_inst.js .done .*.d || true
